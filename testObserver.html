@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<script src="myobserver.js"></script>
+</head>
+
+<body>
+<button id="myobserver" name="myobserver" value="my observer" onclick="fun1()">my observer</button>
+</body>
+<script type="text/javascript">
+	function fun1(){
+		var myobs=new Myobserver();
+		function examplefunc(topics, data) {
+			console.log(topics + ": " + data);
+		}
+		myobs.subscribe('example1', function (topics, data) {
+			console.log(topics + ": " + data);
+		});
+
+		myobs.publish('example1', 'hello world!');
+		myobs.publish('example1', 'hello js observer!');
+		myobs.publish('example1', ['test', 'a', 'b', 'c']);
+		myobs.publish('example1', [{ 'color': 'blue' }, { 'text': 'hello'}]);
+		}
+</script>
+</html>

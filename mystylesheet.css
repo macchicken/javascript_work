@@ -1,0 +1,37 @@
+p {
+	font-family: Impact;
+	font-size:20px;
+	color:orange;
+}
+
+h1 {
+	font-family:cursive;
+	color:#36648b;
+	text-align:center;
+}
+
+span {
+	color:#cc0000;
+	font-size:24px;
+	font-family:Impact;
+}
+
+table{
+	border: 1px solid black;
+	text-decoration: none;
+	border-radius: 5px;
+	border-width: 2px;
+	border-style: solid;
+}
+
+
+#Interests{
+	font-size: 20px;
+	color: red;
+}
+
+#Interests:hover{
+	color: #cc0000;
+	font-weight: bold;
+	text-decoration: none;
+}

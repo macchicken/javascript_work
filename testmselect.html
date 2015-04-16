@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>可选人员</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META NAME="Description" CONTENT="Power by 51windows.Net">
+</HEAD>
+<BODY>
+<!-- <form method="post" name="myform"> -->
+<table border="1" width="400">
+<tr>
+<td><CENTER>可选人员</CENTER></td>
+<!-- <td> </td> -->
+<td><CENTER>已选择人员</CENTER></td>
+</tr>
+<tr>
+<td width="40%">
+<select style="width:100%;" multiple id="left" size="8"
+onclick="moveOption(document.getElementById('left'), document.getElementById('right'))">
+<option value="admin@zhongyi-itl.com">admin</option>
+<option value="barry@qhfinance.org">Barry</option>
+<option value="log525lg100@aliyun.com">Ray</option>
+<option value="228632687@qq.com">Michelle</option>
+<option value="renault194@hotmail.com">Cathy</option>
+<option value="hche3131@uni.sydney.edu.au">Chen Hui</option> 
+</select>
+</td>
+<!-- <td width="20%" align="center">
+<input type="button" value=" >>>> " onclick="moveOption(document.getElementById('left'), document.getElementById('right'))"><br><br>
+<input type="button" value=" <<<< " onclick="moveOption(document.getElementById('right'), document.getElementById('left'))">
+</td> -->
+<td width="40%">
+<select style="width:100%;" multiple id="right" size="8"
+onclick="moveOption(document.getElementById('right'), document.getElementById('left'))">
+</select>
+</td>
+</tr>
+<!-- <tr>
+<td colspan="3"><CENTER><INPUT TYPE="button" value="优先级上升" onclick="changepos(right,-1)">
+<INPUT TYPE="button" value="优先级下降" onclick="changepos(right,1)">
+<INPUT TYPE="button" value="优先级置顶" onclick="gototop(right)">
+</CENTER></td>
+</tr> -->
+</table>
+<!-- 值：<input type="text" name="result" id="result" size="40" value="" /> -->
+<button type="button" onclick="getSelectedValues(document.getElementById('right'))">confirm</button>
+<!-- </form> -->
+<script language="JavaScript">
+function moveOption(e1, e2){
+	for(var i=0;i<e1.options.length;i++){
+	if(e1.options[i].selected){
+	var e = e1.options[i];
+	e2.options.add(new Option(e.text, e.value));
+	e1.remove(i);
+	i=i-1;
+	}
+	}
+	//document.getElementById('result').value=getvalue(document.getElementById('right'));
+}
+function getSelectedValues(e){
+	var result = new Array();
+	for (i=0;i<e.options.length;i++){result.push(e.options[i].value);}
+	if (result.length==0){alert('plz chose at least one');return false;}else{alert(result)}return result;
+}
+function getvalue(geto){
+//var allvalue = "";
+//for(var i=0;i<geto.options.length;i++){
+// allvalue +=geto.options[i].value + ",";
+//}
+var resultArray = new Array();
+for(var i=0;i<geto.options.length;i++){
+resultArray.push(geto.options[i].value);
+}
+return resultArray.join();
+}
+function changepos(obj,index){
+if(index==-1){
+if(obj.selectedIndex !=-1){
+if (obj.selectedIndex>0){
+obj.options(obj.selectedIndex).swapNode(obj.options(obj.selectedIndex-1));
+document.getElementById('result').value=getvalue(document.getElementById('right'));
+}
+}else{
+alert("请至少选择一个已选择排序方式");
+}
+}else if(index==1){
+if(obj.selectedIndex !=-1){
+if (obj.selectedIndex<obj.options.length-1) {
+obj.options(obj.selectedIndex).swapNode(obj.options(obj.selectedIndex+1));
+document.getElementById('result').value=getvalue(document.getElementById('right'));
+}
+}else{
+alert("请至少选择一个已选择排序方式");
+}
+}
+}
+function gototop(obj){
+if(obj.multiple){
+if(obj.selectedIndex !=-1){
+for(var selIndex=0; selIndex<obj.options.length; selIndex++){
+if(obj.options[selIndex].selected){
+var transferIndex = selIndex;
+while(transferIndex > 0 && !obj.options[transferIndex - 1].selected){
+obj.options[transferIndex].swapNode(obj.options[transferIndex - 1]);
+transferIndex --;
+}
+document.getElementById('result').value=getvalue(document.getElementById('right'));
+}
+}
+}else{
+alert("请至少选择一个已选择排序方式");
+}
+}else{
+if(obj.selectedIndex !=-1){
+var selIndex = obj.selectedIndex;
+while(selIndex > 0){
+obj.options[selIndex].swapNode(obj.options[selIndex - 1]);
+selIndex --;
+}
+document.getElementById('result').value=getvalue(document.getElementById('right'));
+}else{
+alert("请至少选择一个已选择排序方式");
+}
+}
+}
+
+</script>
+</BODY>
+</HTML>
