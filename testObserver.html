@@ -1,26 +1,58 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<script src="myobserver.js"></script>
+<script src="module\myobserver.js"></script>
+<script src="module\commonObserver.js"></script>
+<script src="module\commonObject.js"></script>
 </head>
 
 <body>
-<button id="myobserver" name="myobserver" value="my observer" onclick="fun1()">my observer</button>
+<button id="myobserver" name="myobserver" value="Subscribe" onclick="bsubscribe()">my observer Subscribe</button>
+<button id="myobserver" name="myobserver" value="removeSubscribe" onclick="bremoveSubscribe()">my observer remove Subscribe</button>
 </body>
 <script type="text/javascript">
-	function fun1(){
-		var myobs=new Myobserver();
-		function examplefunc(topics, data) {
-			console.log(topics + ": " + data);
+	var co=new CommonObserver();
+	var blogger=new Blogger();
+	var user=new User();
+	co.create(blogger);
+	co.create(user);
+	var tom = {
+		read: function (what) {
+			console.log('Tom看到了如下信息：' + what);
+			}
+	};
+	var mm = {
+		show: function (what) {
+			console.log('mm看到了如下信息：' + what);
 		}
-		myobs.subscribe('example1', function (topics, data) {
-			console.log(topics + ": " + data);
-		});
+	};
+	function bsubscribe(){
+		blogger.addSubscriber(tom.read);
+		blogger.addSubscriber(mm.show);
+		blogger.recommend(blogger.publish,123); 
+	}
+	function bremoveSubscribe(){
+		if (mm!==undefined){
+			blogger.removeSubscriber(mm.show);
+			blogger.recommend(blogger.publish,456);
+			user.addSubscriber(mm.show);
+			user.vote(user.publish,789);
+			}
+	}
+	//function fun1(){
+	//	var myobs=new Myobserver();
+	//	function examplefunc(topics, data) {
+	//		console.log(topics + ": " + data);
+	//	}
+	//	myobs.subscribe('example1', function (topics, data) {
+	//		console.log(topics + ": " + data);
+	//	});
 
-		myobs.publish('example1', 'hello world!');
-		myobs.publish('example1', 'hello js observer!');
-		myobs.publish('example1', ['test', 'a', 'b', 'c']);
-		myobs.publish('example1', [{ 'color': 'blue' }, { 'text': 'hello'}]);
-		}
+	//	myobs.publish('example1', 'hello world!');
+	//	myobs.publish('example1', 'hello js observer!');
+	//	myobs.publish('example1', ['test', 'a', 'b', 'c']);
+	//	myobs.publish('example1', [{ 'color': 'blue' }, { 'text': 'hello'}]);
+	//	}
+	
 </script>
 </html>
