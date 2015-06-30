@@ -1,5 +1,8 @@
 function CommonObserver(){
-	this.objl=[];
+	var objl=[];
+	this.appendObject=function(o){objl.push(o);}
+	this.viewObjl=function(){console.log(objl);}
+	this.toString=function(){var str='';for (var i in this) {str=str+i+" : ["+this[i]+"] ";}return str;}
 };
 
 CommonObserver.prototype.addSubscriber=function(callback){
@@ -22,10 +25,15 @@ CommonObserver.prototype.publish=function(o,what){
         }
 };
 
+CommonObserver.prototype.viewSubscribers=function(){
+	console.log('subscribers '+this.subscribers);
+};
+
 CommonObserver.prototype.create=function(o){
 	for (var i in this) {
+			if (i==='appendObject'){continue;}
             o[i] = this[i];
             o.subscribers = [];
         }
-		this.objl.push(o);
+		this.appendObject(o);
 };

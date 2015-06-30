@@ -1,15 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<script src="module\myobserver.js"></script>
-<script src="module\commonObserver.js"></script>
-<script src="module\commonObject.js"></script>
+<title>JavaScirpt Observer Pattern</title>
 </head>
 
 <body>
 <button id="myobserver" name="myobserver" value="Subscribe" onclick="bsubscribe()">my observer Subscribe</button>
 <button id="myobserver" name="myobserver" value="removeSubscribe" onclick="bremoveSubscribe()">my observer remove Subscribe</button>
 </body>
+<script src="module\myobserver.js"></script>
+<script src="module\commonObserver.js"></script>
+<script src="module\commonObject.js"></script>
 <script type="text/javascript">
 	var co=new CommonObserver();
 	var blogger=new Blogger();
@@ -29,7 +30,9 @@
 	function bsubscribe(){
 		blogger.addSubscriber(tom.read);
 		blogger.addSubscriber(mm.show);
-		blogger.recommend(blogger.publish,123); 
+		blogger.recommend(blogger.publish,123);
+		blogger.viewObjl();
+		blogger.viewSubscribers();
 	}
 	function bremoveSubscribe(){
 		if (mm!==undefined){
@@ -38,7 +41,10 @@
 			user.addSubscriber(mm.show);
 			user.vote(user.publish,789);
 			}
+		blogger.viewSubscribers();user.viewSubscribers();
+		blogger.viewObjl();user.viewObjl();
 	}
+	//console.log(blogger.toString());console.log(user.toString());
 	//function fun1(){
 	//	var myobs=new Myobserver();
 	//	function examplefunc(topics, data) {

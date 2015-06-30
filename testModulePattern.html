@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JavaScirpt Module Pattern</title>
+</head>
+
+<body>
+<div></div>
+<br><br>
+<hr/>
+<button onclick="addShopeItem()">add Shope Item</button>
+<button onclick="calculation()">calculation of Items In Trolley</button>
+<button onclick="displayItemsInTrolley()">display Items In Trolley</button>
+</body>
+<script src="module\commonObject.js"></script>
+<script type="text/javascript">
+	function addShopeItem(){
+		trolleyModule.addItem({
+			item: "bread",
+			price: 0.5
+		});
+		trolleyModule.addItem({
+			item: "butter",
+			price: 0.3
+		});
+		console.log( trolleyModule.getItemCount() );
+		console.log( trolleyModule.getTotalValue() );
+		//code of can not access
+		console.log( trolleyModule.items );
+		try{console.log( items );}catch (referenceError){console.log(referenceError.message);}
+	}
+	function calculation(){
+		var divcontent=document.getElementsByTagName("div");
+		var para = document.createTextNode("total item in the trolley: "+trolleyModule.getItemCount());
+		var para2 = document.createTextNode("the total price in the trolley: "+trolleyModule.getTotalValue());
+		var pnode = document.createElement("P");
+		var pnode2 = pnode.cloneNode();
+		pnode.appendChild(para);pnode2.appendChild(para2);
+		divcontent[divcontent.length-1].appendChild(pnode);
+		divcontent[divcontent.length-1].appendChild(pnode2);
+	}
+	function displayItemsInTrolley(){
+		var items=trolleyModule.disPlayItem();
+		var divcontent=document.getElementsByTagName("div");
+		var pnode = document.createElement("P");
+		for (i in items){
+			var para = document.createTextNode(items[i].item+' '+items[i].price);
+			var pnode2 = pnode.cloneNode();pnode2.appendChild(para);
+			divcontent[divcontent.length-1].appendChild(pnode2);
+		}
+	}
+</script>
+</html>
