@@ -24,3 +24,9 @@ function delRepeatExample () {
         var dd = new Date() - s;//end time=(current time)-(start time)
 		console.log(dd);
 }
+
+function transferImgUrl(imgurl){
+	var lasti=imgurl.lastIndexOf(".");
+	var length=imgurl.length;
+	return imgurl.substring(0, lasti-2)+imgurl.substring(lasti, length);
+}
