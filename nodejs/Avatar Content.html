@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+	<head>
+		<meta name="theme-color" content="#EE6E73">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="msapplication-tap-highlight" content="no">
+		<link rel="stylesheet" href="materialize/css/materialize.min.css">
+		<script type="text/javascript" src="jsmodule/jquery-2.1.1.min.js"></script>
+		<script src="materialize/js/materialize.min.js"></script>
+		<style>
+		.circle, .myimg { position: absolute; width: 42px; height: 42px; overflow: hidden; left: 15px; display: inline-block; vertical-align: middle;}
+		</style>
+	</head>
+	<body>
+		<ul class="collapsible popout" data-collapsible="accordion">
+			<li>
+			  <div class="collapsible-header">
+				  <img src="images/yuna.jpg" style="" alt="" class="circle myimg">
+			  </div>
+			  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+			</li>
+			<li>
+			  <div class="collapsible-header">
+				  <i class="material-icons circle">folder</i>
+			  </div>
+			  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+			</li>
+			<li>
+			  <div class="collapsible-header">
+				  <i class="material-icons circle green">insert_chart</i>
+			  </div>
+			  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+			</li>
+			<li>
+			  <div class="collapsible-header">
+				  <i class="material-icons circle red">play_arrow</i>
+			  </div>
+			  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+			</li>
+			<li>
+			  <div class="collapsible-header">
+				  <i class="material-icons circle red">play_arrow</i>
+			  </div>
+			  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+			</li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.collapsible').collapsible({
+				accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+			});
+		});
+	</script>
+</html>

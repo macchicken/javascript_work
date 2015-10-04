@@ -18,6 +18,7 @@
 	<ul id="states"></ul>
 	<div class="nickname">
 		<input id="n" autocomplete="off" placeHolder="yr nick name" maxlength="10"/><button id="enter">enter</button>
+		<input id="r" autocomplete="off" placeHolder="room number" maxlength="10"/>
 	</div>
 	<div class="wrapper" style="display:none">
 		<input id="m" autocomplete="off" maxlength="200"/><button id="msend">Send</button>
@@ -34,11 +35,12 @@
 			return false;
 		});
 		$('#enter').click(function(){
-			socket.emit('user nickname', $('#n').val());
+			if ($.trim($("#r").val())===""){
+				alert("enter a room number");
+				return false;
+			}
+			socket.emit('user nickname', {nickname:$('#n').val(),roomNum:$.trim($("#r").val())});
 			document.title=$('#n').val();
-			$('#n').val('');
-			$(".wrapper").css("display","block");
-			$(".nickname").css("display","none");
 			return false;
 		});
 		$('#m').click(function () {
@@ -61,6 +63,10 @@
 			$('#messages').append($('<li>').text(msg));
 		});
 		socket.on('new user', function(msg){
+			document.title=$('#n').val();
+			$('#n').val('');
+			$(".wrapper").css("display","block");
+			$(".nickname").css("display","none");
 			$('#messages').append($('<li>').text(msg));
 		});
 		socket.on('user leave', function(msg){
