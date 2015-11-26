@@ -30,16 +30,21 @@
 		var socket = io();
 		console.log(socket);
 		$('#msend').click(function(){
+			if ($.trim($("#m").val())===""){return;}
 			socket.emit('chat message', $('#m').val());
 			$('#m').val('');
 			return false;
 		});
 		$('#enter').click(function(){
+			if ($.trim($("#n").val())===""){
+				alert("enter a nick name");
+				return false;
+			}
 			if ($.trim($("#r").val())===""){
 				alert("enter a room number");
 				return false;
 			}
-			socket.emit('user nickname', {nickname:$('#n').val(),roomNum:$.trim($("#r").val())});
+			socket.emit('user nickname', {nickname:$.trim($('#n').val()),roomNum:$.trim($("#r").val())});
 			document.title=$('#n').val();
 			return false;
 		});
@@ -63,6 +68,7 @@
 			$('#messages').append($('<li>').text(msg));
 		});
 		socket.on('new user', function(msg){
+			console.log("new user");
 			document.title=$('#n').val();
 			$('#n').val('');
 			$(".wrapper").css("display","block");
@@ -70,6 +76,7 @@
 			$('#messages').append($('<li>').text(msg));
 		});
 		socket.on('user leave', function(msg){
+			console.log("user leave");
 			$('#messages').append($('<li>').text(msg));
 		});
 		socket.on('typing', function(msg){
