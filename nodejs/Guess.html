@@ -30,7 +30,11 @@
 		var socket = io();
 		console.log(socket);
 		$('#msend').click(function(){
-			if ($.trim($("#m").val())===""){return;}
+			if ($.trim($("#m").val())===""){
+				return;
+			}else if ($.trim($("#m").val()).length>200){
+				alert("message must no longer than 200");
+			}
 			socket.emit('chat message', $('#m').val());
 			$('#m').val('');
 			return false;
@@ -39,10 +43,14 @@
 			if ($.trim($("#n").val())===""){
 				alert("enter a nick name");
 				return false;
+			}else if ($.trim($("#n").val()).length>100){
+				alert("name must no longer than 100");
 			}
 			if ($.trim($("#r").val())===""){
 				alert("enter a room number");
 				return false;
+			}else if ($.trim($("#n").val()).length>2){
+				alert("room number must no longer than 2");
 			}
 			socket.emit('user nickname', {nickname:$.trim($('#n').val()),roomNum:$.trim($("#r").val())});
 			document.title=$('#n').val();
