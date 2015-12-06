@@ -29,6 +29,7 @@
 	<script type="text/javascript">
 		var socket = io();
 		console.log(socket);
+		var usertext,roomtext;
 		$('#msend').click(function(){
 			if ($.trim($("#m").val())===""){
 				return;
@@ -36,6 +37,17 @@
 				alert("message must no longer than 200");
 			}
 			socket.emit('chat message', $('#m').val());
+			$.ajax({
+				method: "POST",
+				url: "http://localhost:8000/chatMessages",
+				contentType: "application/json",
+				dataType: "json",
+				data: {messagetext:$('#m').val(),usertext:usertext,roomtext:roomtext}
+			}).done(function( msg ){
+				console.log(msg);
+			}).fail(function(msg){
+				console.log(msg);
+			});
 			$('#m').val('');
 			return false;
 		});
@@ -49,9 +61,12 @@
 			if ($.trim($("#r").val())===""){
 				alert("enter a room number");
 				return false;
-			}else if ($.trim($("#n").val()).length>2){
+			}else if ($.trim($("#r").val()).length>2){
 				alert("room number must no longer than 2");
+				return false;
 			}
+			usertext=$.trim($('#n').val());
+			roomtext=$.trim($("#r").val());
 			socket.emit('user nickname', {nickname:$.trim($('#n').val()),roomNum:$.trim($("#r").val())});
 			document.title=$('#n').val();
 			return false;
