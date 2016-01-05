@@ -40,17 +40,20 @@ function simpleChat(){
 		});
 		socket.on('typing', function(){
 			var user=uService.getUserById(socket.id);
+			if (user==undefined){return;}
 			//socket.emit('typing',{"username":user.getName()});
 			socket.broadcast.to(1).emit('typing',{"username":user.getName()});
 		});
 		socket.on('stop typing', function(){
 			var user=uService.getUserById(socket.id);
+			if (user==undefined){return;}
 			//socket.emit('stop typing',{"username":user.getName()});
 			socket.broadcast.to(1).emit('stop typing',{"username":user.getName()});
 		});
 		socket.on('new message', function(msg){
 			console.log('message: ' + msg);
 			var user=uService.getUserById(socket.id);
+			if (user==undefined){return;}
 			//socket.emit('new message',{"username":user.getName(),"message":msg});
 			socket.broadcast.to(1).emit('new message',{"username":user.getName(),"message":msg});
 		});
