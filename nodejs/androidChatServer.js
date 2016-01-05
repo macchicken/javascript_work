@@ -33,8 +33,10 @@ function simpleChat(){
 			console.log('add user message: ' + msg);
 			uService.addUser(new User(socket.id,msg,1));
 			socket.join(1);
-			io.sockets.in(1).emit('login',{"numUsers":uService.getUsersCount()});
-			io.sockets.in(1).emit('user joined',{"username":msg,"numUsers":uService.getUsersCount()});
+			var uc=uService.getUsersCount();
+			console.log(uc);
+			io.sockets.in(1).emit('login',{"numUsers":uc});
+			io.sockets.in(1).emit('user joined',{"username":msg,"numUsers":uc});
 			//socket.emit('login',{"numUsers":userCounter});
 			//socket.emit('user joined',{"username":msg,"numUsers":userCounter});
 		});
