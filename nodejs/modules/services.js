@@ -9,8 +9,7 @@ var usersService=(function(){
 				items[item.id]=item;
 			},
 			getUsersCount: function() {
-				console.log(items.length);
-				return items.length;
+				return Object.keys(items).length;
 			},
 			getUserById: function(userId) {
 				return items[userId];
