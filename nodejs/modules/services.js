@@ -13,6 +13,9 @@ var usersService=(function(){
 			},
 			getUserById: function(userId) {
 				return items[userId];
+			},
+			removeUser: function(item){
+				delete items[item.id];
 			}
 		};
 	};
