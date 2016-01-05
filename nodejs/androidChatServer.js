@@ -32,28 +32,35 @@ function simpleChat(){
 			userCounter=userCounter+1;
 			console.log('add user message: ' + msg);
 			uService.addUser(new User(socket.id,msg,1));
-			socket.emit('login',{"numUsers":userCounter});
-			socket.emit('user joined',{"username":msg,"numUsers":userCounter});
+			socket.join(1);
+			io.sockets.in(1).emit('login',{"numUsers":userCounter});
+			io.sockets.in(1).emit('user joined',{"username":msg,"numUsers":userCounter});
+			//socket.emit('login',{"numUsers":userCounter});
+			//socket.emit('user joined',{"username":msg,"numUsers":userCounter});
 		});
 		socket.on('typing', function(){
 			var user=uService.getUserById(socket.id);
-			socket.emit('typing',{"username":user.getName()});
+			//socket.emit('typing',{"username":user.getName()});
+			socket.broadcast.to(1).emit('typing',{"username":user.getName()});
 		});
 		socket.on('stop typing', function(){
 			var user=uService.getUserById(socket.id);
-			socket.emit('stop typing',{"username":user.getName()});
+			//socket.emit('stop typing',{"username":user.getName()});
+			socket.broadcast.to(1).emit('stop typing',{"username":user.getName()});
 		});
 		socket.on('new message', function(msg){
 			console.log('message: ' + msg);
 			var user=uService.getUserById(socket.id);
-			socket.emit('new message',{"username":user.getName(),"message":msg});
+			//socket.emit('new message',{"username":user.getName(),"message":msg});
+			socket.broadcast.to(1).emit('new message',{"username":user.getName(),"message":msg});
 		});
 		socket.on('disconnect', function(){
 			var user=uService.getUserById(socket.id);
 			console.log(socket.id+' is disconnected');
 			if (user==undefined){return;}
 			userCounter=userCounter-1;
-			socket.emit('user left',{"username":user.getName(),"numUsers":userCounter});
+			//socket.emit('user left',{"username":user.getName(),"numUsers":userCounter});
+			socket.broadcast.to(1).emit('user left',{"username":user.getName(),"numUsers":userCounter});
 		});
 	});
 	
