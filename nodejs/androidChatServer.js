@@ -41,7 +41,7 @@ function simpleChat(){
 		});
 		socket.on('stop typing', function(){
 			var user=uService.getUserById(socket.id);
-			socket.emit('stop typing',{"username"::user.getName()});
+			socket.emit('stop typing',{"username":user.getName()});
 		});
 		socket.on('new message', function(msg){
 			console.log('message: ' + msg);
